@@ -1,0 +1,22 @@
+services:
+  palworld-server:
+    # https://github.com/pocketpairjp/palworld-dedicated-server-docker/pkgs/container/palserver
+    image: ghcr.io/pocketpairjp/palserver:v1.0.1.100619
+
+    container_name: palworld-svr
+
+    entrypoint: /pal/helper.sh
+
+    # https://tech.palworldgame.com/settings-and-operation/arguments
+    command:
+      - -port=8211
+      - -useperfthreads
+      - -NoAsyncLoadingThread
+      - -UseMultithreadForDS
+
+    ports:
+      - "8211:8211/udp"
+
+    volumes:
+      - ./helper.sh:/pal/helper.sh:ro
+      - ./Saved:/pal/Package/Pal/Saved
